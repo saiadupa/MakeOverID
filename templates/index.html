@@ -1,0 +1,565 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Quotation Generator</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f4f4f4;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+            }
+            .container {
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                width: 90%;
+                max-width: 1500px;
+                overflow-y: auto;
+                max-height: 90vh;
+            }
+            h1 {
+                text-align: center;
+                margin-bottom: 20px;
+            }
+            h2 {
+                margin-bottom: 10px;
+            }
+            form {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+            }
+            .section {
+                margin-bottom: 30px;
+            }
+            .row {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+                align-items: flex-end; /* Align items to the bottom */
+            }
+            label {
+                display: block;
+                margin-bottom: 5px;
+            }
+            .form-group {
+                flex: 1 1 calc(12.5% - 10px);
+                min-width: 100px;
+            }
+            input[type="text"],select {
+                width: 100%;
+                padding: 8px;
+                margin-bottom: 10px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+            }
+            button {
+                background-color: #28a745;
+                color: white;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                margin-top: 20px;
+                align-self: center;
+            }
+            button:hover {
+                background-color: #218838;
+            }
+            .add-row {
+                background-color: #007bff;
+                color: white;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+            .add-row:hover {
+                background-color: #0056b3;
+            }
+            .remove-row {
+                background-color: #dc3545;
+                color: white;
+                padding: 8px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                margin-left: 10px;
+            }
+            .remove-row:hover {
+                background-color: #c82333;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <form action="/generate-quotation" method="post" id="quotation-form">
+                <div class="section">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required><br>
+                </div>
+                <div class="form-group">
+                    <label for="type">Type:</label>
+                    <select id="type" name="type" required>
+                        <option value="">Select type</option>
+                        <option value="Villa">Villa</option>
+                        <option value="Individual House">Individual House</option>
+                        <option value="Flat">Flat</option>
+                        <option value="Other">Other</option>
+                    </select><br>
+                </div>  
+                <div class="form-group">
+                    <label for="address">Address:</label>
+                    <input type="text" id="address" name="address" required><br>
+                </div>
+            </div>
+
+
+                <div class="section">
+                    <h1>Entrance AREA</h1>
+                    <div class="row entrance-row">
+                        <div class="form-group">
+                            <label for="item_description_entrance">Item Description:</label>
+                            <select id="item_description_entrance" name="item_description_entrance[]">
+                                <option value="Shoe Storage - Ply finished in Laminate">Shoe Storage - Ply finished in Laminate</option>
+                                <option value="Entrance Wall Paneling with Gold/Brass T Patti Ply finished in Laminate">Entrance Wall Paneling with Gold/Brass T Patti Ply finished in Laminate</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="material_specification_entrance">Material Specification:</label>
+                            <select id="material_specification_entrance" name="material_specification_entrance[]">
+                                <option value="IS 710 Grade Commercial Ply / 1mm Laminate as per selection">IS 710 Grade Commercial Ply / 1mm Laminate as per selection</option>
+                                <option value="IS 710 Grade Commercial Ply / 1mm Laminate as per selection">IS 710 Grade Commercial Ply / 1mm Laminate as per selection</option>
+                            </select>
+                        </div>
+                        
+
+                        <div class="form-group">
+                            <label for="length_entrance">Length:</label>
+                            <input type="text" id="length_entrance" name="length_entrance[]">
+                        </div>
+                        <div class="form-group">
+                            <label for="height_entrance">Height:</label>
+                            <input type="text" id="height_entrance" name="height_entrance[]">
+                        </div>
+                        <div class="form-group">
+                            <label for="qty_entrance">Quantity (sq.ft/rft):</label>
+                            <input type="text" id="qty_entrance" name="qty_entrance[]">
+                        </div>
+                        <div class="form-group">
+                            <label for="unit_price_entrance">Unit Price (per sq.ft):</label>
+                            <input type="text" id="unit_price_entrance" name="unit_price_entrance[]">
+                        </div>
+                        <div class="form-group">
+                            <label for="quantity_entrance">Quantity:</label>
+                            <input type="text" id="quantity_entrance" name="quantity_entrance[]">
+                        </div>
+                        <div class="form-group" style="display: flex; align-items: flex-end;">
+                            <div style="flex-grow: 1;">
+                                <label for="total_entrance">Total:</label>
+                                <input type="text" id="total_entrance" name="total_entrance[]">
+                            </div>
+                            <button type="button" class="remove-row">Remove</button>
+                        </div>
+                    </div>
+                    <button type="button" class="add-row entrance-add-row">Add Row</button>
+                </div>
+
+                <div class="section">
+                    <h1>TV Unit Wall Paneling</h1>
+                    <div class="row tv-row">
+                        <div class="form-group">
+                            <label for="item_description_tv">Item Description:</label>
+                            <select id="item_description_tv" name="item_description_tv[]">
+                                <option value="Ply finished in Laminate & Brass/Gold T Patti with 3\ Ply Boxing - Provision for Profile Light">Ply finished in Laminate & Brass/Gold T Patti with 3" Ply Boxing - Provision for Profile Light</option>
+                                <option value="TV Unit Bottom Cabinet Drawers - Ply finished in Laminate">TV Unit Bottom Cabinet Drawers - Ply finished in Laminate</option>
+                                <option value="TALL Unit - Ply finished in Laminate">TALL Unit - Ply finished in Laminate</option>
+                                <option value="Hall Partition box">Hall Partition box</option>
+                                <option value="partition">partition</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="material_specification_tv">Material Specification:</label>
+                            <select id="material_specification_tv" name="material_specification_tv[]">
+                                <option value="IS 710 Grade Commercial Ply / 1mm Laminate as per selection">IS 710 Grade Commercial Ply / 1mm Laminate as per selection</option>
+                                <option value="IS 710 Grade Commercial Ply / 1mm Laminate as per selection / 0.8mm Internal Laminate/ Hettich or Hafele Hinges & Hardware">IS 710 Grade Commercial Ply / 1mm Laminate as per selection / 0.8mm Internal Laminate/ Hettich or Hafele Hinges & Hardware</option>
+                                <option value="IS 710 Grade Commercial Ply / 1mm Laminate as per selection / 0.8mm Internal Laminate/ Hettich or Hafele Hinges & Hardware">IS 710 Grade Commercial Ply / 1mm Laminate as per selection / 0.8mm Internal Laminate/ Hettich or Hafele Hinges & Hardware</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="length_tv">Length:</label>
+                            <input type="text" id="length_tv" name="length_tv[]">
+                        </div>
+                        <div class="form-group">
+                            <label for="height_tv">Height:</label>
+                            <input type="text" id="height_tv" name="height_tv[]">
+                        </div>
+                        <div class="form-group">
+                            <label for="qty_tv">Quantity (sq.ft/rft):</label>
+                            <input type="text" id="qty_tv" name="qty_tv[]">
+                        </div>
+                        <div class="form-group">
+                            <label for="unit_price_tv">Unit Price (per sq.ft):</label>
+                            <input type="text" id="unit_price_tv" name="unit_price_tv[]">
+                        </div>
+                        <div class="form-group">
+                            <label for="quantity_tv">Quantity:</label>
+                            <input type="text" id="quantity_tv" name="quantity_tv[]">
+                        </div>
+                        <div class="form-group" style="display: flex; align-items: flex-end;">
+                            <div style="flex-grow: 1;">
+                                <label for="total_tv">Total:</label>
+                                <input type="text" id="total_tv" name="total_tv[]">
+                            </div>
+                            <button type="button" class="remove-row">Remove</button>
+                        </div>
+                    </div>
+                    <button type="button" class="add-row tv-add-row">Add Row</button>
+                </div>
+
+                <div class="section">
+                    <h1>Crockery and Puja</h1>
+                    <div class="row crockery-row">
+                        <div class="form-group">
+                            <label for="item_description_crockery">Item Description:</label>
+                            <select id="item_description_crockery" name="item_description_crockery[]">
+                                <option value="Puja Unit - Ply finished in Laminate">Puja Unit - Ply finished in Laminate</option>
+                                <option value="Pooja Room door - ply finished in laminate with CNC cutting">Pooja Room door - ply finished in laminate with CNC cutting</option>
+                                <option value="crockery wall unit with shutters - ply finished in laminate">crockery wall unit with shutters - ply finished in laminate</option>
+                                <option value="crockery tall unit with shutters - ply finished in laminate">crockery tall unit with shutters - ply finished in laminate</option>
+                                <option value="crockery loft unit with shutters - ply finished in laminate">crockery loft unit with shutters - ply finished in laminate</option>
+                                <option value="crockery base unit with shutters - ply finished in laminate">crockery base unit with shutters - ply finished in laminate</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="material_specification_crockery">Material Specification:</label>
+                            <select id="material_specification_crockery" name="material_specification_crockery[]">
+                                <option value="IS 710 Grade Commercial Ply / 1mm Laminate as per selection / 0.8mm Internal Laminate/ Hettich or Hafele Hinges & Hardware">IS 710 Grade Commercial Ply / 1mm Laminate as per selection / 0.8mm Internal Laminate/ Hettich or Hafele Hinges & Hardware</option>
+                                <option value="IS 710 Grade Commercial Ply / 1mm Laminate as per selection / 0.8mm Internal Laminate/ Hettich or Hafele Hinges & Hardware">IS 710 Grade Commercial Ply / 1mm Laminate as per selection / 0.8mm Internal Laminate/ Hettich or Hafele Hinges & Hardware</option>
+                                <option value="IS 710 Grade Commercial Ply / 1mm Laminate as per selection / 0.8mm Internal Laminate/ Hettich or Hafele Hinges & Hardware">IS 710 Grade Commercial Ply / 1mm Laminate as per selection / 0.8mm Internal Laminate/ Hettich or Hafele Hinges & Hardware</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="length_crockery">Length:</label>
+                            <input type="text" id="length_crockery" name="length_crockery[]">
+                        </div>
+                        <div class="form-group">
+                            <label for="height_crockery">Height:</label>
+                            <input type="text" id="height_crockery" name="height_crockery[]">
+                        </div>
+                        <div class="form-group">
+                            <label for="qty_crockery">Quantity (sq.ft/rft):</label>
+                            <input type="text" id="qty_crockery" name="qty_crockery[]">
+                        </div>
+                        <div class="form-group">
+                            <label for="unit_price_crockery">Unit Price (per sq.ft):</label>
+                            <input type="text" id="unit_price_crockery" name="unit_price_crockery[]">
+                        </div>
+                        <div class="form-group">
+                            <label for="quantity_crockery">Quantity:</label>
+                            <input type="text" id="quantity_crockery" name="quantity_crockery[]">
+                        </div>
+                        <div class="form-group" style="display: flex; align-items: flex-end;">
+                            <div style="flex-grow: 1;">
+                                <label for="total_crockery">Total:</label>
+                                <input type="text" id="total_crockery" name="total_crockery[]">
+                            </div>
+                            <button type="button" class="remove-row">Remove</button>
+                        </div>
+                    </div>
+                    <button type="button" class="add-row crockery-add-row">Add Row</button>
+                </div>
+
+                <div class="section">
+                    <h1>KITCHEN</h1>
+                    <div class="row kitchen-row">
+                        <div class="form-group">
+                            <label for="item_description_kitchen">Item Description:</label>
+                            <select id="item_description_kitchen" name="item_description_kitchen[]">
+                                <option value="Kitchen Accessories (PVC cutlery, Bottle pullout, wicker baskets, tandem drawers)">Kitchen Accessories (PVC cutlery, Bottle pullout, wicker baskets, tandem drawers)</option>
+                                <option value="Kitchen Bottom Cabinet-Shutter-BWP - Side A">Kitchen Bottom Cabinet-Shutter-BWP - Side A</option>
+                                <option value="Kitchen Bottom Cabinet-Shutter-BWP - Side B">Kitchen Bottom Cabinet-Shutter-BWP - Side B</option>
+                                <option value="Kitchen wall units Cabinet-Shutter-BWP - Side A">Kitchen wall units Cabinet-Shutter-BWP - Side A</option>
+                                <option value="Kitchen Pantry Cabinet">Kitchen Pantry Cabinet</option>
+                                <option value="Kitchen 'L' shape loft">Kitchen 'L' shape loft</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="material_specification_kitchen">Material Specification:</label>
+                            <select id="material_specification_kitchen" name="material_specification_kitchen[]">
+                                <option value="HETTICH/NIMMI/Ebco/Blum/Eqv.">HETTICH/NIMMI/Ebco/Blum/Eqv.</option>
+                                <option value="IS 710 BWP Grade Ply / 1.6mm Laminate as per selection / 0.8mm Internal Laminate/ Hettich or Hafele Hinges & Hardware">IS 710 BWP Grade Ply / 1.6mm Laminate as per selection / 0.8mm Internal Laminate/ Hettich or Hafele Hinges & Hardware</option>
+                                <option value="IS 710 BWP Grade Ply /Profile Doors/ 1.6mm Laminate as per selection / 0.8mm Internal Laminate/ Hettich or Hafele Hinges & Hardware">IS 710 BWP Grade Ply /Profile Doors/ 1.6mm Laminate as per selection / 0.8mm Internal Laminate/ Hettich or Hafele Hinges & Hardware</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="length_kitchen">Length:</label>
+                            <input type="text" id="length_kitchen" name="length_kitchen[]">
+                        </div>
+                        <div class="form-group">
+                            <label for="height_kitchen">Height:</label>
+                            <input type="text" id="height_kitchen" name="height_kitchen[]">
+                        </div>
+                        <div class="form-group">
+                            <label for="qty_kitchen">Quantity (sq.ft/rft):</label>
+                            <input type="text" id="qty_kitchen" name="qty_kitchen[]">
+                        </div>
+                        <div class="form-group">
+                            <label for="unit_price_kitchen">Unit Price (per sq.ft):</label>
+                            <input type="text" id="unit_price_kitchen" name="unit_price_kitchen[]">
+                        </div>
+                        <div class="form-group">
+                            <label for="quantity_kitchen">Quantity:</label>
+                            <input type="text" id="quantity_kitchen" name="quantity_kitchen[]">
+                        </div>
+                        <div class="form-group" style="display: flex; align-items: flex-end;">
+                            <div style="flex-grow: 1;">
+                                <label for="total_kitchen">Total:</label>
+                                <input type="text" id="total_kitchen" name="total_kitchen[]">
+                            </div>
+                            <button type="button" class="remove-row">Remove</button>
+                        </div>
+                    </div>
+                    <button type="button" class="add-row kitchen-add-row">Add Row</button>
+                </div>
+
+                <div class="section">
+                    <h1>MASTER BEDROOM</h1>
+                    <div class="row master_bedroom-row">
+                        <div class="form-group">
+                            <label for="item_description_master_bedroom">Item Description:</label>
+                            <select id="item_description_master_bedroom" name="item_description_master_bedroom[]">
+                                <option value="Wardrobe Full Ht. - Ply finished in Laminate">Wardrobe Full Ht. - Ply finished in Laminate</option>
+                                <option value="Loft">Loft</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="material_specification_master_bedroom">Material Specification:</label>
+                            <select id="material_specification_master_bedroom" name="material_specification_master_bedroom[]">
+                                <option value="IS 710 BWP Grade Ply / 1.6mm Laminate as per selection / 0.8mm Internal Laminate/ Hettich or Hafele Hinges & Hardware">IS 710 BWP Grade Ply / 1.6mm Laminate as per selection / 0.8mm Internal Laminate/ Hettich or Hafele Hinges & Hardware</option>
+                                <option value="IS 710 Grade Commercial Ply /1mm Laminate as per selection / 0.8mm Internal Laminate/ Hettich or Hafele Hinges & Hardware">IS 710 Grade Commercial Ply /1mm Laminate as per selection / 0.8mm Internal Laminate/ Hettich or Hafele Hinges & Hardware</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="length_master_bedroom">Length:</label>
+                            <input type="text" id="length_master_bedroom" name="length_master_bedroom[]">
+                        </div>
+                        <div class="form-group">
+                            <label for="height_master_bedroom">Height:</label>
+                            <input type="text" id="height_master_bedroom" name="height_master_bedroom[]">
+                        </div>
+                        <div class="form-group">
+                            <label for="qty_master_bedroom">Quantity (sq.ft/rft):</label>
+                            <input type="text" id="qty_master_bedroom" name="qty_master_bedroom[]">
+                        </div>
+                        <div class="form-group">
+                            <label for="unit_price_master_bedroom">Unit Price (per sq.ft):</label>
+                            <input type="text" id="unit_price_master_bedroom" name="unit_price_master_bedroom[]">
+                        </div>
+                        <div class="form-group">
+                            <label for="quantity_master_bedroom">Quantity:</label>
+                            <input type="text" id="quantity_master_bedroom" name="quantity_master_bedroom[]">
+                        </div>
+                        <div class="form-group" style="display: flex; align-items: flex-end;">
+                            <div style="flex-grow: 1;">
+                                <label for="total_master_bedroom">Total:</label>
+                                <input type="text" id="total_master_bedroom" name="total_master_bedroom[]">
+                            </div>
+                            <button type="button" class="remove-row">Remove</button>
+                        </div>
+                    </div>
+                    <button type="button" class="add-row master_bedroom-add-row">Add Row</button>
+                </div>
+
+                <div class="section">
+                    <h1>CHILDREN's BEDROOM</h1>
+                    <div class="row children_bedroom-row">
+                        <div class="form-group">
+                            <label for="item_description_children_bedroom">Item Description:</label>
+                            <select id="item_description_children_bedroom" name="item_description_children_bedroom[]">
+                                <option value="Sliding Wardrobe - Ply Finished in laminate">Sliding Wardrobe - Ply Finished in laminate</option>
+                                <option value="Book Shelf">Book Shelf</option>
+                                <option value="Study Table">Study Table</option>
+                                <option value="Dresser Unit with Mirror - Ply finished in Laminate/Saint Gobain 6mm Thk Mirror/with storage">Dresser Unit with Mirror - Ply finished in Laminate/Saint Gobain 6mm Thk Mirror/with storage</option>
+                                <option value="Dressing table base box with storage">Dressing table base box with storage</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="material_specification_children_bedroom">Material Specification:</label>
+                            <select id="material_specification_children_bedroom" name="material_specification_children_bedroom[]">
+                                <option value="IS 710 Grade Commercial Ply / 1mm Laminate as per selection / 0.8mm Internal Laminate/ Hettich or Hafele Hinges & Hardware">IS 710 Grade Commercial Ply / 1mm Laminate as per selection / 0.8mm Internal Laminate/ Hettich or Hafele Hinges & Hardware</option>
+                                <option value="IS 710 Grade Commercial Ply /1mm Laminate as per selection / 0.8mm Internal Laminate/ Hettich or Hafele Hinges & Hardware/Profile doors if any">IS 710 Grade Commercial Ply /1mm Laminate as per selection / 0.8mm Internal Laminate/ Hettich or Hafele Hinges & Hardware/Profile doors if any</option>
+                                <option value="IS 710 Grade Commercial Ply /1mm Laminate as per selection / 0.8mm Internal Laminate/ Hettich or Hafele Hinges & Hardware">IS 710 Grade Commercial Ply /1mm Laminate as per selection / 0.8mm Internal Laminate/ Hettich or Hafele Hinges & Hardware</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="length_children_bedroom">Length:</label>
+                            <input type="text" id="length_children_bedroom" name="length_children_bedroom[]">
+                        </div>
+                        <div class="form-group">
+                            <label for="height_children_bedroom">Height:</label>
+                            <input type="text" id="height_children_bedroom" name="height_children_bedroom[]">
+                        </div>
+                        <div class="form-group">
+                            <label for="qty_children_bedroom">Quantity (sq.ft/rft):</label>
+                            <input type="text" id="qty_children_bedroom" name="qty_children_bedroom[]">
+                        </div>
+                        <div class="form-group">
+                            <label for="unit_price_children_bedroom">Unit Price (per sq.ft):</label>
+                            <input type="text" id="unit_price_children_bedroom" name="unit_price_children_bedroom[]">
+                        </div>
+                        <div class="form-group">
+                            <label for="quantity_children_bedroom">Quantity:</label>
+                            <input type="text" id="quantity_children_bedroom" name="quantity_children_bedroom[]">
+                        </div>
+                        <div class="form-group" style="display: flex; align-items: flex-end;">
+                            <div style="flex-grow: 1;">
+                                <label for="total_children_bedroom">Total:</label>
+                                <input type="text" id="total_children_bedroom" name="total_children_bedroom[]">
+                            </div>
+                            <button type="button" class="remove-row">Remove</button>
+                        </div>
+                    </div>
+                    <button type="button" class="add-row children_bedroom-add-row">Add Row</button>
+                </div>
+
+                <div class="section">
+                    <h1>Others</h1>
+                    <div class="row others-row">
+                        <div class="form-group">
+                            <label for="item_description_others">Item Description:</label>
+                            <select id="item_description_others" name="item_description_others[]">
+                                <option value="False Ceiling">False Ceiling</option>
+                                <option value="Electrical Work for ceiling">Electrical Work for ceiling</option>
+                                <option value="False Ceiling painting">False Ceiling painting</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="material_specification_others">Material Specification:</label>
+                            <select id="material_specification_others" name="material_specification_others[]">
+                                <option value="Gypsum board">Gypsum board</option>
+                                <option value="Polycab wiring per point">Polycab wiring per point</option>
+                                <option value="2 coat premier and 2 coat Royal Emulsion with Cream white">2 coat premier and 2 coat Royal Emulsion with Cream white</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="length_others">Length:</label>
+                            <input type="text" id="length_others" name="length_others[]">
+                        </div>
+                        <div class="form-group">
+                            <label for="height_others">Height:</label>
+                            <input type="text" id="height_others" name="height_others[]">
+                        </div>
+                        <div class="form-group">
+                            <label for="qty_others">Quantity (sq.ft/rft):</label>
+                            <input type="text" id="qty_others" name="qty_others[]">
+                        </div>
+                        <div class="form-group">
+                            <label for="unit_price_others">Unit Price (per sq.ft):</label>
+                            <input type="text" id="unit_price_others" name="unit_price_others[]">
+                        </div>
+                        <div class="form-group">
+                            <label for="quantity_others">Quantity:</label>
+                            <input type="text" id="quantity_others" name="quantity_others[]">
+                        </div>
+                        <div class="form-group" style="display: flex; align-items: flex-end;">
+                            <div style="flex-grow: 1;">
+                                <label for="total_others">Total:</label>
+                                <input type="text" id="total_others" name="total_others[]">
+                            </div>
+                            <button type="button" class="remove-row">Remove</button>
+                        </div>
+                    </div>
+                    <button type="button" class="add-row others-add-row">Add Row</button>
+                </div>
+
+                <button type="submit">Generate Quotation PDF</button>
+            </form>
+        </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const addRow = (rowClass, addButtonClass) => {
+                    document.querySelector(addButtonClass).addEventListener('click', function() {
+                        const newRow = document.querySelector(rowClass).cloneNode(true);
+                        newRow.querySelectorAll('input').forEach(input => input.value = '');
+                        newRow.querySelector('.remove-row').addEventListener('click', function() {
+                            newRow.remove();
+                        });
+        
+                        // Attach change event listeners to new row
+                        attachCalculationEvents(newRow);
+        
+                        this.before(newRow);
+                    });
+                };
+        
+                const removeRow = (removeButtonClass) => {
+                    document.querySelectorAll(removeButtonClass).forEach(button => {
+                        button.addEventListener('click', function() {
+                            this.closest('.row').remove();
+                        });
+                    });
+                };
+        
+                const attachCalculationEvents = (row) => {
+                    row.querySelectorAll('input').forEach(input => {
+                        input.addEventListener('input', function() {
+                            calculateRowValues(this.closest('.row'));
+                        });
+                    });
+                };
+        
+                const calculateRowValues = (row) => {
+                    const length = parseFloat(row.querySelector('input[name*="length"]').value) || 0;
+                    const height = parseFloat(row.querySelector('input[name*="height"]').value) || 0;
+                    const priceSft = parseFloat(row.querySelector('input[name*="unit_price"]').value) || 0;
+                    const qty = parseFloat(row.querySelector('input[name*="quantity"]').value) || 0;
+        
+                    // Calculate Qty(sqt) = Length * Height
+                    const qtySqft = length * height;
+                    row.querySelector('input[name*="qty"]').value = qtySqft.toFixed(2);
+        
+                    // Calculate Total = Qty(sqt) * Price/sft * Qty
+                    const total = qtySqft * priceSft * qty;
+                    row.querySelector('input[name*="total"]').value = total.toFixed(2);
+                };
+        
+                addRow('.entrance-row', '.entrance-add-row');
+                addRow('.tv-row', '.tv-add-row');
+                addRow('.crockery-row', '.crockery-add-row');
+                addRow('.kitchen-row', '.kitchen-add-row');
+                addRow('.master_bedroom-row', '.master_bedroom-add-row');
+                addRow('.children_bedroom-row', '.children_bedroom-add-row');
+                addRow('.others-row', '.others-add-row');
+        
+                // Attach initial calculation events to existing rows
+                document.querySelectorAll('.row').forEach(row => attachCalculationEvents(row));
+            });
+        </script>
+        
+    </body>
+    </html>
